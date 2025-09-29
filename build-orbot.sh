@@ -16,8 +16,6 @@ else
   git submodule update --init --recursive
 fi
 
-cp OrbotTun.go/* IPtProxy/IPtProxy.go/
-
 if test -d "$TMPDIR"; then
     :
 elif test -d "$TMP"; then
@@ -30,10 +28,7 @@ fi
 
 TEMPDIR="$TMPDIR/IPtProxy"
 printf '\n\n--- Prepare build environment at %s...\n' "$TEMPDIR"
-cd IPtProxy/IPtProxy.go
-go mod tidy
-go get golang.org/x/mobile/bind
-cd ..
+cd IPtProxy
 CURRENT=$PWD
 rm -rf "$TEMPDIR"
 mkdir -p "$TEMPDIR"

@@ -6,6 +6,24 @@ rm -f ../OrbotLib-sources.jar
 # should match Orbot's...
 export MIN_ANDROID_SDK=24
 
+NDK_MIN_VERSION=29
+
+NDK_SOURCE_PROPERTIES="$ANDROID_NDK_HOME/source.properties"
+
+if [ ! -f "$NDK_SOURCE_PROPERTIES" ]; then
+  echo "--- Android NDK not found or too old."
+  exit 1
+fi
+
+NDK_VERSION=$(grep "Pkg.Revision" "$NDK_SOURCE_PROPERTIES" | cut -d' ' -f3)
+
+NDK_MAJOR_VERSION=${NDK_VERSION%%.*}
+
+if [ "$NDK_MAJOR_VERSION" -lt "$NDK_MIN_VERSION" ]; then
+  echo "--- Android NDK version $NDK_VERSION too old. Use at least version $NDK_MIN_VERSION."
+  exit 1
+fi
+
 if [ -d IPtProxy ]; then
   cd IPtProxy
   git clean -fdx

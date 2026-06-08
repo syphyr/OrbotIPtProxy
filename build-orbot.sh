@@ -55,9 +55,8 @@ mkdir -p "$TEMPDIR"
 cp -a . "$TEMPDIR/"
 
 printf '\n\n--- Compile %s...\n' "$OUTPUT"
-export PATH=~/Projects/Go/bin:$PATH
 cd "$TEMPDIR/IPtProxy.go" || exit 1
-gomobile init 
-gomobile bind -o "OrbotLib.aar" -ldflags="-w -s -checklinkname=0" -target=android -androidapi="$MIN_ANDROID_SDK" -v -tags=netcgo -trimpath
+go run golang.org/x/mobile/cmd/gomobile@latest init
+go run golang.org/x/mobile/cmd/gomobile@latest bind -o "OrbotLib.aar" -ldflags="-w -s -checklinkname=0" -target=android -androidapi="$MIN_ANDROID_SDK" -v -tags=netcgo -trimpath
 cp -v OrbotLib.aar "$CURRENT/../.."
 printf '\n\nDone\n'
